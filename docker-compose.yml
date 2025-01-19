@@ -22,7 +22,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Username=jmail;Password=Jmail09022006@;Database=TicketsToSky
     ports:
-      - "1728:1728"
+      - "1728:8080"
     depends_on:
       - postgres
 
