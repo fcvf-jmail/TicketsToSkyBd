@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  # Сервис для PostgreSQL
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: TicketsToSky
+      POSTGRES_USER: jmail
+      POSTGRES_PASSWORD: Jmail09022006@
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Сервис для .NET приложения
+  tickets-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Username=jmail;Password=Jmail09022006@;Database=TicketsToSky
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
